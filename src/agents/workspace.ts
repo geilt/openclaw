@@ -28,6 +28,7 @@ export const DEFAULT_USER_FILENAME = "USER.md";
 export const DEFAULT_HEARTBEAT_FILENAME = "HEARTBEAT.md";
 export const DEFAULT_BOOTSTRAP_FILENAME = "BOOTSTRAP.md";
 export const DEFAULT_MEMORY_FILENAME = "MEMORY.md";
+export const DEFAULT_GNAS_FILENAME = "GNAS.md";
 export const DEFAULT_MEMORY_ALT_FILENAME = "memory.md";
 const WORKSPACE_STATE_DIRNAME = ".openclaw";
 const WORKSPACE_STATE_FILENAME = "workspace-state.json";
@@ -87,7 +88,8 @@ export type WorkspaceBootstrapFileName =
   | typeof DEFAULT_HEARTBEAT_FILENAME
   | typeof DEFAULT_BOOTSTRAP_FILENAME
   | typeof DEFAULT_MEMORY_FILENAME
-  | typeof DEFAULT_MEMORY_ALT_FILENAME;
+  | typeof DEFAULT_MEMORY_ALT_FILENAME
+  | typeof DEFAULT_GNAS_FILENAME;
 
 export type WorkspaceBootstrapFile = {
   name: WorkspaceBootstrapFileName;
@@ -113,6 +115,7 @@ const VALID_BOOTSTRAP_NAMES: ReadonlySet<string> = new Set([
   DEFAULT_BOOTSTRAP_FILENAME,
   DEFAULT_MEMORY_FILENAME,
   DEFAULT_MEMORY_ALT_FILENAME,
+  DEFAULT_GNAS_FILENAME,
 ]);
 
 async function writeFileIfMissing(filePath: string, content: string): Promise<boolean> {
@@ -443,6 +446,10 @@ export async function loadWorkspaceBootstrapFiles(dir: string): Promise<Workspac
     {
       name: DEFAULT_BOOTSTRAP_FILENAME,
       filePath: path.join(resolvedDir, DEFAULT_BOOTSTRAP_FILENAME),
+    },
+    {
+      name: DEFAULT_GNAS_FILENAME,
+      filePath: path.join(resolvedDir, DEFAULT_GNAS_FILENAME),
     },
   ];
 
