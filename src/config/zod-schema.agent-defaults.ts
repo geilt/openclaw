@@ -148,6 +148,31 @@ export const AgentDefaultsSchema = z
         thinking: z.string().optional(),
         runTimeoutSeconds: z.number().int().min(0).optional(),
         announceTimeoutMs: z.number().int().positive().optional(),
+        contextScripts: z
+          .object({
+            run: z
+              .array(
+                z
+                  .object({
+                    id: z.string(),
+                    uri: z.string(),
+                    format: z.union([z.literal("json"), z.literal("arguments")]).optional(),
+                    method: z.string().optional(),
+                    priority: z.number().optional(),
+                    position: z.union([z.literal("append"), z.literal("prepend")]).optional(),
+                    log: z.union([z.boolean(), z.literal("verbose")]).optional(),
+                    errorHandling: z.union([z.literal("continue"), z.literal("stop")]).optional(),
+                    returnKey: z.string().optional(),
+                    errorKey: z.string().optional(),
+                    agentIdOverrideKey: z.string().optional(),
+                    argMap: z.record(z.string(), z.string()).optional(),
+                  })
+                  .strict(),
+              )
+              .optional(),
+          })
+          .strict()
+          .optional(),
       })
       .strict()
       .optional(),
